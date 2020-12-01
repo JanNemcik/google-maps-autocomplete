@@ -7,7 +7,7 @@
          class="form-control"
          #search
          MatValidateAddress
-         required>
+         [required]="required">
   <mat-error *ngIf="addressSearchControl.hasError('required')">
     {{requiredErrorText}}
   </mat-error>

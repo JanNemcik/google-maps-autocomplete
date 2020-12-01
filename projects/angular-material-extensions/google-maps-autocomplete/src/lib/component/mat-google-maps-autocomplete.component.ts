@@ -72,6 +72,9 @@ export class MatGoogleMapsAutocompleteComponent implements OnInit, ControlValueA
   @Input()
   autoCompleteOptions: AutocompleteOptions = {};
 
+  @Input()
+  required = true;
+
   @Output()
   onChange: EventEmitter<PlaceResult | string | null> = new EventEmitter<PlaceResult | string | null>();
 
@@ -88,9 +91,9 @@ export class MatGoogleMapsAutocompleteComponent implements OnInit, ControlValueA
   private onNewPlaceResult: EventEmitter<any> = new EventEmitter();
   private addressValidator: MatValidateAddressDirective = new MatValidateAddressDirective();
 
-  public addressSearchControl: FormControl = new FormControl({value: null}, Validators.compose([
+  public addressSearchControl: FormControl = new FormControl({value: null}, this.required ? Validators.compose([
     Validators.required,
-    this.addressValidator.validate()])
+    this.addressValidator.validate()]) : this.addressValidator.validate()
   );
 
   propagateChange = (_: any) => {
